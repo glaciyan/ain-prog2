@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"de.ketra","l":"AbstractFrequencyTable"},{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"de.ketra","l":"ArrayFrequencyTable"},{"p":"<Unnamed>","l":"ArrayFrequencyTable_Test"},{"p":"de.ketra","l":"FrequencyTable"},{"p":"de.ketra","l":"Word"}];updateSearchResults();
