@@ -52,7 +52,7 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
                 }
 
                 return;
-            } else if (lowerFrequencyNode == null && f >= q.word.getFrequency()) {
+            } else if (lowerFrequencyNode == null && f > q.word.getFrequency()) {
                 lowerFrequencyNode = q;
             }
 
