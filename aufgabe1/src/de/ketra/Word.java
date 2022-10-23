@@ -1,7 +1,7 @@
 package de.ketra;
 
 /**
- * Klasse für Wörter mit ihren Häufigkeiten.
+ * Klasse f&uuml;r W&ouml;rter mit ihren H&auml;ufigkeiten.
  * @author oliverbittel
  * @since 22.3.2019
  */

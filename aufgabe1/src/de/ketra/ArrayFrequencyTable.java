@@ -28,6 +28,7 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
 
     @Override
     public void add(String w, int f) {
+        if (f < 0) throw new IllegalArgumentException("f darf nicht kleiner als 0 sein");
         int i;
         for (i = 0; i < size; i++) {
             Word word = fqTable[i];
@@ -88,6 +89,6 @@ public class ArrayFrequencyTable extends AbstractFrequencyTable {
             }
         }
 
-        return 0;
+        return -1;
     }
 }
