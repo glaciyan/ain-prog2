@@ -1,41 +1,19 @@
 package de.ketra;
 
 public class LinkedListFrequencyTable extends AbstractFrequencyTable {
-    private static class Node {
-        public Node prev;
-        public Node next;
-        public Word word;
-
-        public Node(Node prev, Node next, Word word) {
-            this.prev = prev;
-            this.next = next;
-            this.word = word;
-        }
-
-        @Override
-        public String toString() {
-            if (this.word == null) return "null word node";
-            if (prev == null && next == null) {
-                return "(%s:%d)".formatted(this.word.getWord(), this.word.getFrequency());
-            }
-
-            if (prev == null || prev.word == null) {
-                return "(%s:%d) -> %s:%d".formatted(this.word.getWord(), this.word.getFrequency(), next.word.getWord(), next.word.getFrequency());
-            } else if (next == null || next.word == null) {
-                return "%s:%d -> (%s:%d) -> null".formatted(prev.word.getWord(), prev.word.getFrequency(), this.word.getWord(), this.word.getFrequency());
-            } else {
-                return "%s:%d -> (%s:%d) -> %s:%d".formatted(prev.word.getWord(), prev.word.getFrequency(), this.word.getWord(), this.word.getFrequency(), next.word.getWord(), next.word.getFrequency());
-            }
-        }
-    }
-
     private Node first;
     private Node last;
-
     private int size;
 
     public LinkedListFrequencyTable() {
         clear();
+    }
+
+    private static Node takeOut(Node node) {
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
+        node.next = node.prev = null;
+        return node;
     }
 
     @Override
@@ -55,36 +33,37 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
     public void add(String w, int f) {
         Node q = first.next;
 
+        Node lowerFrequencyNode = null;
+
         while (q.next != null) {
             if (q.word.getWord().equals(w)) {
                 q.word.addFrequency(f);
 
-                if (q.prev != null && q.word.getFrequency() >= q.prev.word.getFrequency()) {
-                    Node smallerNode = q.prev.prev;
+                if (q.prev.word != null && q.word.getFrequency() >= q.prev.word.getFrequency()) {
+                    Node beforeSmallerNode = q.prev.prev;
                     Node removed = remove(q);
-                    while (smallerNode.prev != null) {
-                        if (smallerNode.word.getFrequency() >= removed.word.getFrequency())
+                    while (beforeSmallerNode.prev != null) {
+                        if (beforeSmallerNode.word.getFrequency() >= removed.word.getFrequency())
                             break;
-                        smallerNode = smallerNode.prev;
+                        beforeSmallerNode = beforeSmallerNode.prev;
                     }
 
-                    insertAfter(removed.word.getWord(), removed.word.getFrequency(), smallerNode);
+                    insertAfter(removed.word.getWord(), removed.word.getFrequency(), beforeSmallerNode);
                 }
 
                 return;
+            } else if (lowerFrequencyNode == null && f >= q.word.getFrequency()) {
+                lowerFrequencyNode = q;
             }
 
             q = q.next;
         }
 
-        insertBefore(w, f, last);
-    }
-
-    private static Node takeOut(Node node) {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-        node.next = node.prev = null;
-        return node;
+        if (lowerFrequencyNode != null) {
+            insertBefore(w, f, lowerFrequencyNode);
+        } else {
+            insertBefore(w, f, last);
+        }
     }
 
     private Node remove(Node node) {
@@ -130,5 +109,33 @@ public class LinkedListFrequencyTable extends AbstractFrequencyTable {
         }
 
         return 0;
+    }
+
+    private static class Node {
+        public Node prev;
+        public Node next;
+        public Word word;
+
+        public Node(Node prev, Node next, Word word) {
+            this.prev = prev;
+            this.next = next;
+            this.word = word;
+        }
+
+        @Override
+        public String toString() {
+            if (this.word == null) return "null word node";
+            if (prev == null && next == null) {
+                return "(%s:%d)".formatted(this.word.getWord(), this.word.getFrequency());
+            }
+
+            if (prev == null || prev.word == null) {
+                return "(%s:%d) -> %s:%d".formatted(this.word.getWord(), this.word.getFrequency(), next.word.getWord(), next.word.getFrequency());
+            } else if (next == null || next.word == null) {
+                return "%s:%d -> (%s:%d) -> null".formatted(prev.word.getWord(), prev.word.getFrequency(), this.word.getWord(), this.word.getFrequency());
+            } else {
+                return "%s:%d -> (%s:%d) -> %s:%d".formatted(prev.word.getWord(), prev.word.getFrequency(), this.word.getWord(), this.word.getFrequency(), next.word.getWord(), next.word.getFrequency());
+            }
+        }
     }
 }
