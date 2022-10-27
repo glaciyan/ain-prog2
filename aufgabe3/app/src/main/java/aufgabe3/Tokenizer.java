@@ -1,4 +1,4 @@
-package de.ketra.aufgabe3;
+package aufgabe3;
 /*
  * class Tokenizer
  * Zerlegt einen String in eine Folge von Tokens.
