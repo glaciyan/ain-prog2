@@ -1,4 +1,3 @@
-package aufgabe3;
 /*
  * class Tokenizer
  * Zerlegt einen String in eine Folge von Tokens.
@@ -8,6 +7,7 @@ package aufgabe3;
  *
  * O. Bittel; 24.2.2019
  */
+package de.ketra.aufgabe3;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
