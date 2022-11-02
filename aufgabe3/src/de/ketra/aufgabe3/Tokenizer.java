@@ -86,7 +86,7 @@ public class Tokenizer {
      * @param args
      */
     public static void main(String[] args) {
-        String s = "2^3+3.2*4.5+4";
+        String s = "2^3+3.2*(4.5+4)";
         Tokenizer tokenizer = new Tokenizer(s);
         Object token;
         while ((token = tokenizer.nextToken()) != null) {
