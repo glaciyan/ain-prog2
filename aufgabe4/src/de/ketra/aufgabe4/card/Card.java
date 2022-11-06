@@ -38,4 +38,20 @@ public abstract class Card {
         QUEEN,
         ACE
     }
+
+    @Override
+    public String toString() {
+        return "%s:%s:%s".formatted(this.suit, this.rank, this.getColor());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Card card = (Card) o;
+
+        if (suit != card.suit) return false;
+        return rank == card.rank;
+    }
 }

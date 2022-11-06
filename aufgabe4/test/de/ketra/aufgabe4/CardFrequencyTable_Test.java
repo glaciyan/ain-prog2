@@ -42,7 +42,7 @@ public class CardFrequencyTable_Test {
 		System.out.println(redCardTab);
 		System.out.println(blackCardTab);
 
-		//redCardTab.addAll(cardTab1); // nicht OK
+//		redCardTab.addAll(cardTab1); // nicht OK
 		cardTab1.addAll(redCardTab);
 		redCardTab.addAll(redCardTab);
 		System.out.println(redCardTab);
