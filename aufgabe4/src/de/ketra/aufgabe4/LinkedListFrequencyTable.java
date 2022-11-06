@@ -1,9 +1,14 @@
 package de.ketra.aufgabe4;
 
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
     private Node<T> first;
     private Node<T> last;
     private int size;
+    private int modCount = 0;
 
     public LinkedListFrequencyTable() {
         clear();
@@ -23,10 +28,11 @@ public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
 
     @Override
     public void clear() {
-        this.first = new Node<T>(null, null, null);
-        this.last = new Node<T>(this.first, null, null);
+        this.first = new Node<>(null, null, null);
+        this.last = new Node<>(this.first, null, null);
         this.first.next = this.last;
         size = 0;
+        modCount++;
     }
 
     @Override
@@ -69,21 +75,24 @@ public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
     private Node<T> remove(Node<T> node) {
         Node<T> removed = takeOut(node);
         size--;
+        modCount++;
         return removed;
     }
 
     private void insertBefore(T w, int f, Node<T> at) {
-        Node<T> n = new Node<T>(at.prev, at, new Element<T>(w, f));
+        Node<T> n = new Node<>(at.prev, at, new Element<>(w, f));
         n.prev.next = n;
         at.prev = n;
         size++;
+        modCount++;
     }
 
     private void insertAfter(T w, int f, Node<T> at) {
-        Node<T> n = new Node<T>(at, at.next, new Element<T>(w, f));
+        Node<T> n = new Node<>(at, at.next, new Element<>(w, f));
         at.next = n;
         n.next.prev = n;
         size++;
+        modCount++;
     }
 
     @Override
@@ -112,6 +121,7 @@ public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
     }
 
     private static class Node<T> {
+
         public Node<T> prev;
         public Node<T> next;
         public Element<T> element;
@@ -136,6 +146,32 @@ public class LinkedListFrequencyTable<T> extends AbstractFrequencyTable<T> {
             } else {
                 return "%s:%d -> (%s:%d) -> %s:%d".formatted(prev.element.getValue(), prev.element.getFrequency(), this.element.getValue(), this.element.getFrequency(), next.element.getValue(), next.element.getFrequency());
             }
+        }
+    }
+
+    @Override
+    public Iterator<Element<T>> iterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator<Element<T>> {
+        private Node<T> current = first;
+        private final int expectedModCount = modCount;
+
+        @Override
+        public boolean hasNext() {
+            return current.next != null;
+        }
+
+        @Override
+        public Element<T> next() {
+            if (expectedModCount != modCount)
+                throw new ConcurrentModificationException();
+            if(!hasNext())
+                throw new NoSuchElementException();
+
+            current = current.next;
+            return current.element;
         }
     }
 }

@@ -18,8 +18,7 @@ public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
 
 	@Override
 	public void addAll(FrequencyTable<? extends T> fq) {
-		for (int i = 0; i < fq.size(); i++) {
-			Element<? extends T> element = fq.get(i);
+		for (Element<? extends T> element : fq) {
 			this.add(element.getValue(), element.getFrequency());
 		}
 	}
@@ -30,8 +29,7 @@ public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
 		int highest = this.get(0).getFrequency();
 
 		fq.clear();
-		for (int i = 0; i < this.size(); i++) {
-			Element<T> element = this.get(i);
+		for (Element<T> element : this) {
 			if (element.getFrequency() < highest) break;
 
 			fq.add(element.getValue(), element.getFrequency());
@@ -43,8 +41,7 @@ public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
 		if (this.isEmpty()) return;
 
 		fq.clear();
-		for (int i = this.size() - 1; i >= 0; i--) {
-			Element<T> element = this.get(i);
+		for (Element<T> element : this) {
 			if (element.getFrequency() > 1) break;
 
 			fq.add(element.getValue(), element.getFrequency());
@@ -61,8 +58,8 @@ public abstract class AbstractFrequencyTable<T> implements FrequencyTable<T> {
 
 		s.append("{");
 
-		for (int i = 0; i < this.size(); i++) {
-			s.append(this.get(i)).append(", ");
+		for (Element<T> element : this) {
+			s.append(element).append(", ");
 		}
 
 		s.append("}");

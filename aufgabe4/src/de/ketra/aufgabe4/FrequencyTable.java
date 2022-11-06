@@ -5,7 +5,7 @@ package de.ketra.aufgabe4;
  * @author oliverbittel
  * @since 12.2.2020
  */
-public interface FrequencyTable<T> {
+public interface FrequencyTable<T> extends Iterable<Element<T>> {
 	/**
 	 * Liefert die Anzahl der W&ouml;rter in dieser Tabelle zur&uuml;ck.
 	 * @return Anzahl der H&auml;ufigkeitseintr&auml;ge.
