@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77ab7ebd-bd51-4373-bff7-5d2faef8d06d" name="Changes" comment="setup aufgabe3">
+    <list default="true" id="77ab7ebd-bd51-4373-bff7-5d2faef8d06d" name="Changes" comment="aufgabe3 fertig">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/ketra/aufgabe3/Evaluator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/ketra/aufgabe3/Evaluator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/ketra/aufgabe3/Tokenizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/ketra/aufgabe3/Tokenizer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,20 +32,20 @@
     <option name="showLibraryContents" value="true" />
     <option name="sortByType" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.maddyhome.idea.vim.ui.VimEmulationConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.maddyhome.idea.vim.ui.VimEmulationConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Evaluator">
     <configuration name="Evaluator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="de.ketra.aufgabe3.Evaluator" />
@@ -96,7 +94,8 @@
       <workItem from="1667378166699" duration="454000" />
       <workItem from="1667378738854" duration="1473000" />
       <workItem from="1667380632762" duration="2162000" />
-      <workItem from="1667391723256" duration="9454000" />
+      <workItem from="1667391723256" duration="10044000" />
+      <workItem from="1667552670883" duration="1840000" />
     </task>
     <task id="LOCAL-00001" summary="setup aufgabe3">
       <created>1667301951098</created>
@@ -105,7 +104,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667301951098</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="aufgabe3 fertig">
+      <created>1667403777331</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1667403777331</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -124,7 +130,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="setup aufgabe3" />
-    <option name="LAST_COMMIT_MESSAGE" value="setup aufgabe3" />
+    <MESSAGE value="aufgabe3 fertig" />
+    <option name="LAST_COMMIT_MESSAGE" value="aufgabe3 fertig" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -137,11 +144,6 @@
           <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/de/ketra/aufgabe3/Evaluator.java</url>
-          <line>46</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint enabled="true" type="java-exception" />
