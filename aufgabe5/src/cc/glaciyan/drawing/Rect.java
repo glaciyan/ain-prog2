@@ -51,13 +51,13 @@ public final class Rect {
      * @return Ein {@link Rect} aus den 2 Eckpunkten
      */
     public static Rect valueOf(Point2 a, Point2 b) {
-        double gegenKathete = b.getY() - a.getY();
-        double anKathete = b.getX() - a.getX();
+        double gegenKathete = b.y() - a.y();
+        double anKathete = b.x() - a.x();
 
         double ang = Math.toDegrees(Math.atan2(gegenKathete, anKathete));
         double w = Math.sqrt(gegenKathete * gegenKathete + anKathete * anKathete);
 
-        return new Rect(a.getX(), a.getY(), w, ang);
+        return new Rect(a.x(), a.y(), w, ang);
     }
 
     /**
@@ -77,7 +77,7 @@ public final class Rect {
      * @return Die Gegenkathete.
      */
     private double getGegenkathete() {
-        return this.b.getY() - this.a.getY();
+        return this.b.y() - this.a.y();
     }
 
 
@@ -86,7 +86,7 @@ public final class Rect {
      * @return Die Ankathete.
      */
     private double getAnkathete() {
-        return this.b.getX() - this.a.getX();
+        return this.b.x() - this.a.x();
     }
 
     /**
@@ -124,14 +124,14 @@ public final class Rect {
 
         var gamma = Math.toRadians(getGamma());
 
-        return new Point2(d.getX() + u * Math.cos(del + gamma), d.getY() + u * Math.sin(del + gamma));
+        return new Point2(d.x() + u * Math.cos(del + gamma), d.y() + u * Math.sin(del + gamma));
     }
 
     /**
      * Zeichnet das Rechteck auf dem Bildschirm.
      */
     public void draw() {
-        StdDraw.polygon(new double[]{a.getX(), b.getX(), c.getX(), d.getX()}, new double[]{a.getY(), b.getY(), c.getY(), d.getY()});
+        StdDraw.polygon(new double[]{a.x(), b.x(), c.x(), d.x()}, new double[]{a.y(), b.y(), c.y(), d.y()});
     }
 
     /**
