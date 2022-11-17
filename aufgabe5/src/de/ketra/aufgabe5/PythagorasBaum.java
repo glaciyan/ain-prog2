@@ -6,13 +6,11 @@ import edu.princeton.cs.introcs.StdDraw;
 
 public class PythagorasBaum {
     public static void main(String[] args) throws InterruptedException {
-//        var size = 40;
-//        StdDraw.setXscale(-size, size);
-//        StdDraw.setYscale(-1, size * 2);
-//        resetDraw();
-//        drawTree(10, 45, 12);
-        var p = Point2.valueOf("1.4,4");
-        System.out.println(p);
+        var size = 40;
+        StdDraw.setXscale(-size, size);
+        StdDraw.setYscale(-1, size * 2);
+        resetDraw();
+        drawTree(10, 45, 12);
     }
 
     public static void drawTree(double width, double alpha, int depth) {
