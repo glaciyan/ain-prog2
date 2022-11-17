@@ -2,13 +2,14 @@ package cc.glaciyan.drawing;
 
 import edu.princeton.cs.introcs.StdDraw;
 
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
 /**
  * Repräsentiert ein Punkt im Raum mit einer x und y Koordinate.
  */
-public record Point2(double x, double y) implements Comparable<Point2> {
+public record Point2(double x, double y) {
     /**
      * Ein Punkt am Uhrsprung.
      */
@@ -25,6 +26,7 @@ public record Point2(double x, double y) implements Comparable<Point2> {
 
     /**
      * Konvertiert ein {@link String} zu einem {@link Point2}.
+     *
      * @param s Der {@link String} zum Konvertieren.
      * @return Ein {@link Point2} mit den gegebenen Werten.
      */
@@ -35,11 +37,11 @@ public record Point2(double x, double y) implements Comparable<Point2> {
         }
 
         sc.useDelimiter(",");
+        sc.useLocale(Locale.US); // double mit punkt
         return new Point2(sc.nextDouble(), sc.nextDouble());
     }
 
-    // TODO: no double support
-    private static final Pattern FORMAT = Pattern.compile("^\\(\\d+,\\s*\\d+\\)$");
+    private static final Pattern FORMAT = Pattern.compile("^\\d+(\\.\\d+)?,\\d+(\\.\\d+)?$");
 
     /**
      * Zeichnet den Punkt auf den Bildschirm.
@@ -55,12 +57,29 @@ public record Point2(double x, double y) implements Comparable<Point2> {
      */
     @Override
     public String toString() {
-        return "(%f, %f)".formatted(this.x, this.y);
+        return "%.4f,%.4f".formatted(this.x, this.y);
     }
 
     @Override
-    public int compareTo(Point2 o) {
-        return 0;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Point2 point2 = (Point2) o;
+
+        if (Double.compare(point2.x, x) != 0) return false;
+        return Double.compare(point2.y, y) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(x);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
     /**
