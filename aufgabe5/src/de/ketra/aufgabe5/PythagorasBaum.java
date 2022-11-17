@@ -1,5 +1,6 @@
 package de.ketra.aufgabe5;
 
+import cc.glaciyan.drawing.Rect;
 import edu.princeton.cs.introcs.StdDraw;
 
 public class PythagorasBaum {
