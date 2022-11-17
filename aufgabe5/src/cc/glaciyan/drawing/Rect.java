@@ -3,23 +3,18 @@ package cc.glaciyan.drawing;
 import de.ketra.aufgabe5.PythagorasBaum;
 import edu.princeton.cs.introcs.StdDraw;
 
+import java.util.Objects;
+
 /**
  * Repräsentiert ein Rechteck mit vier Eckpunkten.
  */
 public final class Rect {
-    private final Point2 a; // 1. ecke
-    private final Point2 b; // 2.
-    private final Point2 c; // 3.
-    private final Point2 d; // 4.
+    private final Vector2 a;
+    private final Vector2 b;
+    private final Vector2 c;
+    private final Vector2 d;
 
-    /**
-     * Konstruiert ein Rechteck aus 4 Eckpunkten.
-     * @param a Der untere linke Punkt.
-     * @param b Der untere rechte Punkt.
-     * @param c Der obere rechte Punkt.
-     * @param d Der obere linke Punkt.
-     */
-    public Rect(Point2 a, Point2 b, Point2 c, Point2 d) {
+    private Rect(Vector2 a, Vector2 b, Vector2 c, Vector2 d) {
         this.a = a;
         this.b = b;
         this.c = c;
@@ -28,61 +23,88 @@ public final class Rect {
 
     /**
      * Konstruiert ein Rechteck.
-     * @param x Die x Koordinate der unteren linken Ecke.
-     * @param y Die y Koordinate der unteren linken Ecke.
-     * @param w Die breite und länge des Rechtecks.
+     *
+     * @param x     Die x Koordinate der unteren linken Ecke.
+     * @param y     Die y Koordinate der unteren linken Ecke.
+     * @param w     Die breite und höhe des Rechtecks.
      * @param gamma Der winkel vom boden zur unteren Kante.
+     * @return The Rectangle from the given values.
      */
-    public Rect(double x, double y, double w, double gamma) {
-        double ang = Math.toRadians(gamma);
-        double s = w * Math.sin(ang);
-        double c = w * Math.cos(ang);
+    public static Rect valueOf(double x, double y, double w, double gamma) {
+        return Rect.valueOf(x, y, w, w, gamma);
+    }
 
-        this.a = new Point2(x, y);
-        this.b = new Point2(x + c, y + s);
-        this.c = new Point2(x + c - s, y + s + c);
-        this.d = new Point2(x - s, y + c);
+    /**
+     * Konstruiert ein Rechteck.
+     *
+     * @param x     Die x Koordinate der unteren linken Ecke.
+     * @param y     Die y Koordinate der unteren linken Ecke.
+     * @param w     Die Breite des Rechtecks.
+     * @param h Die Höhe des Rechtecks.
+     * @param gamma Der winkel vom boden zur unteren Kante.
+     * @return The Rectangle from the given values.
+     */
+    public static Rect valueOf(double x, double y, double w, double h, double gamma) {
+        var hr = h/w;
+        var ang = Math.toRadians(gamma);
+        var s = w * Math.sin(ang);
+        var c = w * Math.cos(ang);
+
+        var pA = new Vector2(x, y);
+        var pB = new Vector2(x + c, y + s);
+        var pC = new Vector2(x + c - s*hr, y + s + c*hr);
+        var pD = new Vector2(x - s*hr, y + c*hr);
+        return new Rect(pA, pB, pC, pD);
     }
 
     /**
      * Konstruiert ein Rechteck aus 2 Eckpunkten.
+     *
      * @param a Der untere Linke Punkt von Rechteck.
      * @param b Der untere Rechte Punkt von Rechteck.
      * @return Ein {@link Rect} aus den 2 Eckpunkten
      */
-    public static Rect valueOf(Point2 a, Point2 b) {
-        double gegenKathete = b.y() - a.y();
-        double anKathete = b.x() - a.x();
+    public static Rect valueOf(Vector2 a, Vector2 b) {
+        var gegenKathete = b.y() - a.y();
+        var anKathete = b.x() - a.x();
 
-        double ang = Math.toDegrees(Math.atan2(gegenKathete, anKathete));
-        double w = Math.sqrt(gegenKathete * gegenKathete + anKathete * anKathete);
+        var ang = Math.toDegrees(Math.atan2(gegenKathete, anKathete));
+        var w = Math.sqrt(gegenKathete * gegenKathete + anKathete * anKathete);
 
-        return new Rect(a.x(), a.y(), w, ang);
+        return Rect.valueOf(a.x(), a.y(), w, ang);
     }
 
     /**
-     * Konstruiert ein Rechteck aus 2 Eckpunkten.
-     * @param x1 Die x Koordinate von der unteren Linken Ecke.
-     * @param y1 Die y Koordinate von der unteren Linken Ecke.
-     * @param x2 Die x Koordinate von der unteren Reckten Ecke.
-     * @param y2 Die y Koordinate von der unteren Reckten Ecke.
+     * Konstruiert ein Rechteck aus 2 Eckpunkten und einer höhe.
+     *
+     * @param a      Der untere Linke Punkt von Rechteck.
+     * @param b      Der untere Rechte Punkt von Rechteck.
+     * @param height Die höhe vom Rechteck.
      * @return Ein {@link Rect} aus den 2 Eckpunkten
      */
-    public static Rect valueOf(double x1, double y1, double x2, double y2) {
-        return Rect.valueOf(new Point2(x1, y1), new Point2(x2, y2));
+    // TODO
+    public static Rect valueOf(Vector2 a, Vector2 b, double height) {
+        var gegenKathete = b.y() - a.y();
+        var anKathete = b.x() - a.x();
+
+        var ang = Math.toDegrees(Math.atan2(gegenKathete, anKathete));
+        var w = Math.sqrt(gegenKathete * gegenKathete + anKathete * anKathete);
+
+        return Rect.valueOf(a.x(), a.y(), w, height, ang);
     }
 
     /**
      * Rechnet die Gegenkathete aus.
+     *
      * @return Die Gegenkathete.
      */
     private double getGegenkathete() {
         return this.b.y() - this.a.y();
     }
 
-
     /**
      * Rechnet die Ankathete aus.
+     *
      * @return Die Ankathete.
      */
     private double getAnkathete() {
@@ -91,32 +113,35 @@ public final class Rect {
 
     /**
      * Rechnet die breite und höhe von Rechteck aus.
+     *
      * @return Die breite und höhe.
      */
     public double getWidth() {
-        double gegenKathete = getGegenkathete();
-        double anKathete = getAnkathete();
+        var gegenKathete = getGegenkathete();
+        var anKathete = getAnkathete();
 
         return Math.sqrt(gegenKathete * gegenKathete + anKathete * anKathete);
     }
 
     /**
      * Rechnet den Winkel vom Boden zur unteren Ecke aus.
+     *
      * @return Der Winkel vom Boden zue unteren Ecke.
      */
     public double getGamma() {
-        double gegenKathete = getGegenkathete();
-        double anKathete = getAnkathete();
+        var gegenKathete = getGegenkathete();
+        var anKathete = getAnkathete();
 
         return Math.toDegrees(Math.atan2(gegenKathete, anKathete));
     }
 
     /**
      * Rechnet den Dreieckpunkt E aus.
+     *
      * @param delta Den Winkel vom Dreieck.
-     * @return Ein {@link Point2} E für das Dreieck.
+     * @return Ein {@link Vector2} E für das Dreieck.
      */
-    public Point2 getE(double delta) {
+    public Vector2 getE(double delta) {
         var del = Math.toRadians(delta);
         var w = getWidth();
         double u = w * Math.cos(del);
@@ -124,7 +149,7 @@ public final class Rect {
 
         var gamma = Math.toRadians(getGamma());
 
-        return new Point2(d.x() + u * Math.cos(del + gamma), d.y() + u * Math.sin(del + gamma));
+        return new Vector2(d.x() + u * Math.cos(del + gamma), d.y() + u * Math.sin(del + gamma));
     }
 
     /**
@@ -132,6 +157,23 @@ public final class Rect {
      */
     public void draw() {
         StdDraw.polygon(new double[]{a.x(), b.x(), c.x(), d.x()}, new double[]{a.y(), b.y(), c.y(), d.y()});
+    }
+
+    /**
+     * Zeichnet die Seiten A-D und B-C
+     */
+    public void drawSides() {
+        StdDraw.line(a.x(), a.y(), d.x(), d.y());
+        StdDraw.line(b.x(), b.y(), c.x(), c.y());
+    }
+
+    /**
+     * Zeichnet die Seiten A-D, A-B, B-C
+     */
+    public void drawOpenBox() {
+        StdDraw.line(a.x(), a.y(), d.x(), d.y());
+        StdDraw.line(a.x(), a.y(), b.x(), b.y());
+        StdDraw.line(b.x(), b.y(), c.x(), c.y());
     }
 
     /**
@@ -147,46 +189,76 @@ public final class Rect {
     public void drawPoints() {
         StdDraw.setPenRadius(0.01);
         StdDraw.setPenColor(StdDraw.BLUE);
-        getA().draw();
+        a().draw();
         StdDraw.setPenColor(StdDraw.GREEN);
-        getB().draw();
+        b().draw();
         StdDraw.setPenColor(StdDraw.RED);
-        getC().draw();
+        c().draw();
         StdDraw.setPenColor(StdDraw.MAGENTA);
-        getD().draw();
+        d().draw();
         PythagorasBaum.resetDraw();
     }
 
     /**
      * Gibt den punkt A.
-     * @return {@link Point2} A
+     *
+     * @return {@link Vector2} A
      */
-    public Point2 getA() {
+    public Vector2 a() {
         return a;
     }
 
     /**
      * Gibt den punkt B.
-     * @return {@link Point2} B
+     *
+     * @return {@link Vector2} B
      */
-    public Point2 getB() {
+    public Vector2 b() {
         return b;
     }
 
     /**
      * Gibt den punkt C.
-     * @return {@link Point2} C
+     *
+     * @return {@link Vector2} C
      */
-    public Point2 getC() {
+    public Vector2 c() {
         return c;
     }
 
     /**
      * Gibt den punkt D.
-     * @return {@link Point2} D
+     *
+     * @return {@link Vector2} D
      */
-    public Point2 getD() {
+    public Vector2 d() {
         return d;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (Rect) obj;
+        return Objects.equals(this.a, that.a) &&
+                Objects.equals(this.b, that.b) &&
+                Objects.equals(this.c, that.c) &&
+                Objects.equals(this.d, that.d);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(a, b, c, d);
+    }
+
+    @Override
+    public String toString() {
+        return "Rect[" +
+                "a=" + a + ", " +
+                "b=" + b + ", " +
+                "c=" + c + ", " +
+                "d=" + d + ']';
+    }
+
 
 }

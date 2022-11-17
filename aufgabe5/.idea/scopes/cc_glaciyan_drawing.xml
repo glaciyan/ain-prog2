@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="cc.glaciyan.drawing" pattern="src:cc.glaciyan.drawing.*" />
+</component>
