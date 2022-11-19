@@ -33,6 +33,30 @@ public final class HybridSort {
     }
 
     private static <T extends Comparable<T>> int partition(T[] a, int li, int re) {
+        {
+            // li mi re
+            // 3  5  6
+
+            // mi ist median
+            // li < mi < re
+            // li ist median
+            // mi < li < re
+            // in anderen fällen ist re median
+
+            int mi = (li + re) / 2;
+            if (a[li].compareTo(a[mi]) < 0) {
+                if (a[mi].compareTo(a[re]) < 0) {
+//                    System.out.printf("swapping: %s %s %s, med %s%n", a[li], a[mi], a[re], a[mi]);
+                    swap(a, mi, re); // li < mi < re
+                }
+            } else if (a[li].compareTo(a[re]) < 0) {
+//                System.out.printf("swapping: %s %s %s, med %s%n", a[li], a[mi], a[re], a[li]);
+                swap(a, li, re); // mi <= li < re
+            }
+//            System.out.printf("swapping: %s %s %s, med %s%n", a[li], a[mi], a[re], a[re]);
+        }
+
+
         T v = a[re];
         int i = li - 1;
         int j = re;
