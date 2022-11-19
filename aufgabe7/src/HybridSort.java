@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public final class HybridSort {
     public static <T extends Comparable<T>> void hybridQuickSort(T[] a) {
         hybridSort(a, 0, a.length - 1);
@@ -9,13 +7,8 @@ public final class HybridSort {
         while (re > li) {
             // Teileschritt
             int i;
-            System.out.printf("li %d ", li);
-            System.out.printf("re %d ", re);
-            System.out.printf("len %d -> ", re - li + 1);
-            System.out.printf("%s%n", Arrays.toString(Arrays.copyOfRange(a, li, re + 1)));
             if (re - li + 1 <= 100) {
                 insertionSort(a, li, re);
-                System.out.printf("insertionSort -> %s%n", Arrays.toString(Arrays.copyOfRange(a, li, re + 1)));
                 i = re;
             } else {
                 i = partition(a, li, re);
@@ -28,15 +21,14 @@ public final class HybridSort {
     }
 
     private static <T extends Comparable<T>> void insertionSort(T[] a, int li, int re) {
-        for (int i = li + 1; i < re + 1; i++)
-        {
+        for (int i = li + 1; i < re + 1; i++) {
             T v = a[i];
             int j = i - 1;
             while (j >= 0 && a[j].compareTo(v) > 0) {
-                a[j+1] = a[j];
+                a[j + 1] = a[j];
                 j--;
             }
-            a[j+1] = v;
+            a[j + 1] = v;
         }
     }
 
