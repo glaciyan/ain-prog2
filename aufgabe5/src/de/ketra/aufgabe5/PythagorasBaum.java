@@ -13,17 +13,17 @@ public class PythagorasBaum {
     private final static double MIN_HEIGHT = 3;
     private final static double MAX_HEIGHT = 12;
 
-    private final static double LEAF_THRESHOLD = 0.5;
+    private final static double LEAF_THRESHOLD = 2;
 
     public static void main(String[] args) {
-        StdDraw.setCanvasSize(1000, 1000);
+        StdDraw.setCanvasSize(800, 800);
 
         var scale = 70;
         StdDraw.setXscale(-scale, scale);
         StdDraw.setYscale(-1, scale * 2);
         resetDraw();
-//        drawTree(10, 30, 8);
-//        drawRandomTree(6, 60, 12);
+//        drawTree(10, 30, 12);
+        drawRandomTree(6, 60, 12);
     }
 
     private static void drawRandomTree(double rootWidth, int depth) {
@@ -71,12 +71,15 @@ public class PythagorasBaum {
         }
 
         var left = Rect.valueOf(root.d(), root.getE(alpha));
-        left.drawSides();
-        left.drawPoints();
+        if (left.getWidth() < LEAF_THRESHOLD) StdDraw.setPenColor(StdDraw.GREEN);
+        left.draw();
+        resetDraw();
         drawTree(left, alpha, depth - 1);
 
         var right = Rect.valueOf(root.getE(alpha), root.c());
-        right.drawSides();
+        if (left.getWidth() < LEAF_THRESHOLD) StdDraw.setPenColor(StdDraw.GREEN);
+        right.draw();
+        resetDraw();
         drawTree(right, alpha, depth - 1);
     }
 
