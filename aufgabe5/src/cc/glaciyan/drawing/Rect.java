@@ -82,7 +82,6 @@ public final class Rect {
      * @param height Die höhe vom Rechteck.
      * @return Ein {@link Rect} aus den 2 Eckpunkten
      */
-    // TODO
     public static Rect valueOf(Vector2 a, Vector2 b, double height) {
         var gegenKathete = b.y() - a.y();
         var anKathete = b.x() - a.x();

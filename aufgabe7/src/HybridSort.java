@@ -1,9 +1,9 @@
 public final class HybridSort {
-    public static <T extends Comparable<T>> void hybridQuickSort(T[] a) {
+    public static <T extends Comparable<? super T>> void hybridQuickSort(T[] a) {
         hybridSort(a, 0, a.length - 1);
     }
 
-    private static <T extends Comparable<T>> void hybridSort(T[] a, int li, int re) {
+    private static <T extends Comparable<? super T>> void hybridSort(T[] a, int li, int re) {
         while (re > li) {
             // Teileschritt
             int i;
@@ -20,7 +20,7 @@ public final class HybridSort {
         }
     }
 
-    private static <T extends Comparable<T>> void insertionSort(T[] a, int li, int re) {
+    private static <T extends Comparable<? super T>> void insertionSort(T[] a, int li, int re) {
         for (int i = li + 1; i < re + 1; i++) {
             T v = a[i];
             int j = i - 1;
@@ -32,7 +32,7 @@ public final class HybridSort {
         }
     }
 
-    private static <T extends Comparable<T>> int partition(T[] a, int li, int re) {
+    private static <T extends Comparable<? super T>> int partition(T[] a, int li, int re) {
         {
             // li mi re
             // 3  5  6

@@ -16,14 +16,16 @@ public class PythagorasBaum {
     private final static double LEAF_THRESHOLD = 2;
 
     public static void main(String[] args) {
+//        StdDraw.show(0);
         StdDraw.setCanvasSize(800, 800);
 
         var scale = 70;
         StdDraw.setXscale(-scale, scale);
         StdDraw.setYscale(-1, scale * 2);
         resetDraw();
-//        drawTree(10, 30, 12);
-        drawRandomTree(6, 60, 12);
+        drawTree(10, 30, 12);
+//        drawRandomTree(6, 60, 12);
+        StdDraw.show(0);
     }
 
     private static void drawRandomTree(double rootWidth, int depth) {
