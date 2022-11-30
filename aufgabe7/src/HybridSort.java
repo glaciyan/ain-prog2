@@ -1,6 +1,27 @@
 public final class HybridSort {
+    public static <T extends Comparable<? super T>> void hybridQuickSort3Median(T[] a) {
+        hybridSort3Median(a, 0, a.length - 1);
+    }
+
     public static <T extends Comparable<? super T>> void hybridQuickSort(T[] a) {
-        hybridSort(a, 0, a.length - 1);
+        hybridSort3Median(a, 0, a.length - 1);
+    }
+
+    private static <T extends Comparable<? super T>> void hybridSort3Median(T[] a, int li, int re) {
+        while (re > li) {
+            // Teileschritt
+            int i;
+            if (re - li + 1 <= 100) {
+                insertionSort(a, li, re);
+                i = re;
+            } else {
+                i = partition3Median(a, li, re);
+                // Herrscheschritt
+                hybridSort3Median(a, li, i - 1);
+            }
+
+            li = i + 1;
+        }
     }
 
     private static <T extends Comparable<? super T>> void hybridSort(T[] a, int li, int re) {
@@ -13,7 +34,7 @@ public final class HybridSort {
             } else {
                 i = partition(a, li, re);
                 // Herrscheschritt
-                hybridSort(a, li, i - 1);
+                hybridSort3Median(a, li, i - 1);
             }
 
             li = i + 1;
@@ -32,7 +53,7 @@ public final class HybridSort {
         }
     }
 
-    private static <T extends Comparable<? super T>> int partition(T[] a, int li, int re) {
+    private static <T extends Comparable<? super T>> int partition3Median(T[] a, int li, int re) {
         {
             // li mi re
             // 3  5  6
@@ -57,6 +78,10 @@ public final class HybridSort {
         }
 
 
+        return partition(a, li, re);
+    }
+
+    private static <T extends Comparable<? super T>> int partition(T[] a, int li, int re) {
         T v = a[re];
         int i = li - 1;
         int j = re;

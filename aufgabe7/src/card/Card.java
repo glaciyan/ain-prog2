@@ -1,6 +1,8 @@
 package card;
 
-public abstract class Card {
+import java.util.Random;
+
+public abstract class Card implements Comparable<Card> {
     public Suit suit;
     public Rank rank;
 
@@ -12,6 +14,31 @@ public abstract class Card {
     public Card() {
         this.suit = Suit.HEARTS;
         this.rank = Rank.SEVEN;
+    }
+
+    public static Card random() {
+        Random random = new Random();
+
+        Card card = null;
+        switch (random.nextInt(0, 2)) {
+            case 0:
+                card = new RedCard();
+                break;
+            case 1:
+                card = new BlackCard();
+                break;
+        }
+
+        {
+            var values = Rank.values();
+            card.rank = values[random.nextInt(values.length)];
+        }
+        {
+            var values = Suit.values();
+            card.suit = values[random.nextInt(values.length)];
+        }
+
+        return card;
     }
 
     public Suit getSuit() {
@@ -50,7 +77,7 @@ public abstract class Card {
 
     @Override
     public String toString() {
-        return "%s:%s:%s".formatted(this.suit, this.rank, this.getColor());
+        return "%s:%s:%s".formatted(this.suit, this.rank, this.getColor().toString());
     }
 
     @Override
@@ -64,5 +91,20 @@ public abstract class Card {
         return rank == card.rank;
     }
 
+    @Override
+    public int compareTo(Card o) {
+        var color = this.getColor().compareTo(o.getColor());
 
+        if (color == 0) {
+            var suit = this.getSuit().compareTo(o.getSuit());
+
+            if (suit == 0) {
+                return this.getRank().compareTo(o.getRank());
+            }
+
+            return suit;
+        }
+
+        return color;
+    }
 }
