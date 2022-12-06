@@ -24,6 +24,11 @@ public class Var implements Expression {
     }
 
     @Override
+    public void getVars(Set<String> set) {
+        set.add(this.name);
+    }
+
+    @Override
     public String toString() {
         return this.name;
     }

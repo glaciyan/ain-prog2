@@ -15,9 +15,15 @@ public abstract class CompoundExpression implements Expression {
 
     @Override
     public Set<String> getVars() {
-        TreeSet<String> set = new TreeSet<>(left.getVars());
-        set.addAll(right.getVars());
+        TreeSet<String> set = new TreeSet<>();
+        this.getVars(set);
         return set;
+    }
+
+    @Override
+    public void getVars(Set<String> set) {
+        left.getVars(set);
+        right.getVars(set);
     }
 
     @Override

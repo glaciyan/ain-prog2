@@ -7,4 +7,6 @@ public interface Expression {
     double eval(Map<String, Double> values);
 
     Set<String> getVars();
+
+    void getVars(Set<String> set);
 }

@@ -22,7 +22,15 @@ public class Constant implements Expression {
     }
 
     @Override
+    public void getVars(Set<String> set) {
+    }
+
+    @Override
     public String toString() {
+        return getFormatted();
+    }
+
+    private String getFormatted() {
         return "%.1f".formatted(this.value);
     }
 }
