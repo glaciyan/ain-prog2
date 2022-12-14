@@ -13,7 +13,13 @@ public class Var implements Expression {
 
     @Override
     public double eval(Map<String, Double> values) {
-        return values.get(name);
+        var val = values.get(name);
+
+        if (val == null) {
+            return 0;
+        }
+        
+        return val;
     }
 
     @Override
