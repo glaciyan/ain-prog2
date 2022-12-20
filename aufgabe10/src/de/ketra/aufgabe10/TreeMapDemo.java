@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 public class TreeMapDemo {
     public static void main(String[] args) {
-        NavigableMap<String,Integer> telBuch = new TreeMap<String,Integer>();
+        NavigableMap<String, Integer> telBuch = new TreeMap<>();
 
         // Kunden eintragen:
         telBuch.put("Maier", 1234);
@@ -31,7 +31,7 @@ public class TreeMapDemo {
 
         // TelBuch sortiert ausgeben:
         System.out.println("Telefonbuch:");
-        for (Entry<String,Integer> eintrag : telBuch.entrySet()) {
+        for (Entry<String, Integer> eintrag : telBuch.entrySet()) {
             System.out.println(eintrag.getKey() + ": " + eintrag.getValue());
         }
 
@@ -43,7 +43,7 @@ public class TreeMapDemo {
 
         // Bereichssichten: TelBuch nur mit 'M' ausgeben:
         System.out.println("Telefonbucheintaege mit M:");
-        for (Entry<String,Integer> eintrag
+        for (Entry<String, Integer> eintrag
                 : telBuch.subMap("M", true, "N", false).entrySet()) {
             System.out.println(eintrag.getKey() + ": " + eintrag.getValue());
         }
