@@ -3,32 +3,86 @@
 
 package de.ketra.aufgabe10;
 
-import java.util.Map.Entry;
-import java.util.TreeMap;
-import java.util.List;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
 public class TelefonBuch {
 
-    private TreeMap<String,String> telBuch = new TreeMap<String,String>();
+    private TreeMap<String, String> telBuch = new TreeMap<>();
+
+    private static void print(List<String> strList) {
+        for (String s : strList)
+            System.out.println(s);
+    }
+
+    public static void main(String[] args)
+            throws FileNotFoundException, IOException {
+
+        TelefonBuch telBuch = new TelefonBuch();
+        telBuch.read(new File("TelBuchMit420Namen.txt"));
+
+        System.out.println(telBuch.exactSearch("Oliver", ""));
+        System.out.println();
+
+        print(telBuch.prefixSearch("H"));
+        System.out.println();
+
+        print(telBuch.prefixSearch(""));
+        System.out.println();
+
+        telBuch.insert("Oliver", "1", "33245");
+        telBuch.insert("Oliver", "2", "23423");
+        telBuch.insert("Oliver", "3", "87655");
+        telBuch.remove("Oliver", "2");
+
+        print(telBuch.prefixSearch("Ol"));
+        System.out.println();
+
+        telBuch.save(new File("test.txt"));
+    }
+
+    private static String makeKey(String name, String zusatz) {
+        return name + " " + zusatz;
+    }
+
+    private static ArrayList<String> getArrayList(NavigableMap<String, String> view) {
+        var list = new ArrayList<String>();
+        view.forEach((k, v) -> list.add(k + " " + v));
+        return list;
+    }
 
     public boolean insert(String name, String zusatz, String telNr) {
-        return true; // damit IDE kein Systaxfehler anzeigt
+        String key = makeKey(name, zusatz);
+        if (telBuch.containsKey(key)) return false;
+
+        telBuch.put(key, telNr);
+        return true;
     }
 
     public boolean remove(String name, String zusatz) {
-        return true; // damit IDE kein Systaxfehler anzeigt
+        var out = telBuch.remove(makeKey(name, zusatz));
+        return out != null;
     }
 
     public String exactSearch(String name, String zusatz) {
-        return ""; // damit IDE kein Systaxfehler anzeigt
+        return telBuch.get(makeKey(name, zusatz));
     }
 
     public List<String> prefixSearch(String s) {
-        return null; // damit IDE kein Systaxfehler anzeigt
+        if (s.length() == 0) return getArrayList(telBuch);
+
+        // next string to s where the last char is one greater
+        var next = s.substring(0, s.length() - 1) + (char) (s.charAt(s.length() - 1) + 1);
+        var view = telBuch.subMap(s, true, next, false);
+
+        return getArrayList(view);
     }
 
     public void read(File f) {
@@ -64,36 +118,4 @@ public class TelefonBuch {
             Logger.getLogger(TelefonBuch.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    private static void print(List<String> strList) {
-        for (String s : strList)
-            System.out.println(s);
-    }
-
-    public static void main(String[] args)
-            throws FileNotFoundException, IOException {
-        
-        TelefonBuch telBuch = new TelefonBuch();
-        telBuch.read(new File("TelBuchMit420Namen.txt"));
-
-        System.out.println(telBuch.exactSearch("Oliver",""));
-        System.out.println();
-
-        print(telBuch.prefixSearch("H"));
-        System.out.println();
-        
-        print(telBuch.prefixSearch(""));
-        System.out.println();
-
-        telBuch.insert("Oliver","1","33245");
-        telBuch.insert("Oliver","2","23423");
-        telBuch.insert("Oliver","3","87655");
-        telBuch.remove("Oliver","2");
-
-        print(telBuch.prefixSearch("Ol"));
-        System.out.println();
-       
-        telBuch.save(new File("test.txt"));
-    }
 }
-
