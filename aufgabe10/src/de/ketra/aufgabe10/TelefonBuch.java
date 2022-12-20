@@ -15,15 +15,14 @@ import java.util.logging.Logger;
 
 public class TelefonBuch {
 
-    private TreeMap<String, String> telBuch = new TreeMap<>();
+    private final TreeMap<String, String> telBuch = new TreeMap<>();
 
     private static void print(List<String> strList) {
         for (String s : strList)
             System.out.println(s);
     }
 
-    public static void main(String[] args)
-            throws FileNotFoundException, IOException {
+    public static void main(String[] args) {
 
         TelefonBuch telBuch = new TelefonBuch();
         telBuch.read(new File("TelBuchMit420Namen.txt"));
@@ -49,7 +48,7 @@ public class TelefonBuch {
     }
 
     private static String makeKey(String name, String zusatz) {
-        return name + " " + zusatz;
+        return (name + " " + zusatz).trim();
     }
 
     private static ArrayList<String> getArrayList(NavigableMap<String, String> view) {
@@ -86,7 +85,7 @@ public class TelefonBuch {
     }
 
     public void read(File f) {
-        LineNumberReader in = null;
+        LineNumberReader in;
         try {
             telBuch.clear();
             in = new LineNumberReader(new FileReader(f));
@@ -106,7 +105,7 @@ public class TelefonBuch {
     }
 
     public void save(File f) {
-        PrintWriter out = null;
+        PrintWriter out;
         try {
             out = new PrintWriter(f);
             for (Entry<String, String> eintrag : telBuch.entrySet()) {
