@@ -1,7 +1,7 @@
 // O. Bittel
 // 10.03.2017
 
-package Aufgabe11TelefonBuch;
+package de.ketra.aufgabe10;
 
 import javax.swing.*;
 

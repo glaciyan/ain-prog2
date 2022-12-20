@@ -1,11 +1,10 @@
 // O. Bittel
 // 10.03.2017
 
-package Aufgabe11TelefonBuch;
+package de.ketra.aufgabe10;
 
 import java.util.Map.Entry;
 import java.util.TreeMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.io.*;
 import java.util.logging.Level;
