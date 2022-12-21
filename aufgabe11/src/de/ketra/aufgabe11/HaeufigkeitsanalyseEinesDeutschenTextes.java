@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -44,6 +45,7 @@ public class HaeufigkeitsanalyseEinesDeutschenTextes {
     public static void printTop100(Map<String, Integer> h) {
         h.entrySet().stream()
                 .sorted((k, v) -> v.getValue().compareTo(k.getValue()))
+//                .sorted(Comparator.comparing((Map.Entry<String, Integer> m) -> m.getValue()).reversed())
                 .limit(100)
                 .forEachOrdered(System.out::println);
     }
