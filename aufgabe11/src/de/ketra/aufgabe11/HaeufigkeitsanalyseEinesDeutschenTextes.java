@@ -18,7 +18,6 @@ public class HaeufigkeitsanalyseEinesDeutschenTextes {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         Map<String, Integer> haeufigkeit = ermittleHaufigekeiten("Kafka_Der_Prozess.txt");
-        System.out.println(haeufigkeit);
         printTop100(haeufigkeit);
     }
 
@@ -32,9 +31,9 @@ public class HaeufigkeitsanalyseEinesDeutschenTextes {
         while ((line = in.readLine()) != null) {
             String[] wf = line.split("[^a-z^A-Z^ß^ä^ö^ü^Ä^Ö^Ü]+");
             for (String w : wf) {
-                if (w.length() == 0 || w.length() == 1) continue;
-                System.out.println(w);
-
+                if (w.length() == 0 || w.length() == 1)
+                    continue;
+//                System.out.println(w);
                 haeufigkeit.merge(w, 1, Integer::sum);
             }
         }
@@ -44,7 +43,7 @@ public class HaeufigkeitsanalyseEinesDeutschenTextes {
 
     public static void printTop100(Map<String, Integer> h) {
         h.entrySet().stream()
-                .sorted((a, b) -> b.getValue().compareTo(a.getValue()))
+                .sorted((k, v) -> v.getValue().compareTo(k.getValue()))
                 .limit(100)
                 .forEachOrdered(System.out::println);
     }
